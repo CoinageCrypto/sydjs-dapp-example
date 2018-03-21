@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:100,400");
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+a {
+  color: white;
+}
+
+.title,
+.error {
+  font-size: 1.75em;
+  font-weight: 400;
+}
+
+.quote {
+  font-size: 3em;
+  font-weight: 100;
+}
+
+.credit {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  line-height: 50px;
+  font-size: 5em;
+  font-weight: 400;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+  padding-left: 20px;
+}
+
+.instructions {
+  font-size: 1em;
+  font-weight: 100;
+}
+
+.newMessage {
+  width: 300px;
+}
