@@ -1,11 +1,14 @@
 import React, { PureComponent } from "react";
 import Loader from "react-loader-spinner";
+import web3 from "web3";
 
 import ContractManager from "./ContractManager";
 
 import SydJSLogo from "./logo.png";
 
 import "./App.css";
+
+const { BN } = web3.utils;
 
 class App extends PureComponent {
   state = {
@@ -20,7 +23,13 @@ class App extends PureComponent {
   componentDidMount = async () => {
     try {
       await this.updateStringAndPrice();
-      this.setState({ loading: false });
+      // Default the new price to a sane amount.
+      const newPrice = await ContractManager.getSuggestedNewPrice();
+
+      this.setState({
+        loading: false,
+        newPrice
+      });
 
       // And continue to poll for new updates.
       setInterval(this.updateStringAndPrice, 1000);
@@ -96,7 +105,6 @@ class App extends PureComponent {
           </div>
         </div>
         <div>
-          <p className="instructions">Last price was {price}ETH.</p>
           <form onSubmit={this.onSubmit}>
             <input
               type="text"
@@ -116,6 +124,17 @@ class App extends PureComponent {
             />
             <button type="submit">Update Message</button>
           </form>
+          <p className="instructions">
+            Smart Contract Address:{" "}
+            <a
+              href="https://rinkeby.etherscan.io/address/0xbf62a9067217309d3dbd7aed42f6f3e3a72caf71"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              0xbF62A9067217309D3DBd7Aed42f6F3E3a72cAF71
+            </a>
+          </p>
+          <p className="instructions">Last price was {price}ETH.</p>
         </div>
       </div>
     );

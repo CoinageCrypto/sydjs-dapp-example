@@ -1,5 +1,6 @@
 import { abi } from "./abi";
 import Web3 from "web3";
+const { BN, fromWei, toWei } = Web3.utils;
 
 class ContractManager {
   contract = null;
@@ -63,11 +64,24 @@ class ContractManager {
 
     const result = await this.contract.methods.lastAmountPaid().call();
 
-    return this.web3.utils.fromWei(result, "ether");
+    return fromWei(result, "ether");
+  };
+
+  getSuggestedNewPrice = async () => {
+    await this.ensureContractInitialised();
+
+    const lastAmount = new BN(
+      await this.contract.methods.lastAmountPaid().call()
+    );
+    const additional = toWei("0.0001", "ether");
+    const result = lastAmount.add(new BN(additional));
+
+    return fromWei(result, "ether");
   };
 
   subscribeForUpdates = async callback => {
     await this.ensureContractInitialised();
+
     const currentBlock = await this.web3.eth.getBlockNumber();
 
     this.contract.events.MessageUpdated(
