@@ -110,7 +110,7 @@ class App extends PureComponent {
               placeholder="Make it rain!"
               min="0"
               max="100000000000"
-              step=".0000000001"
+              step=".0001"
               onChange={e => this.onChange("newPrice", e.target.value)}
               value={newPrice}
             />
