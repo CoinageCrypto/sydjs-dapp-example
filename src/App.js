@@ -19,13 +19,11 @@ class App extends PureComponent {
 
   componentDidMount = async () => {
     try {
-      // Listen for future updates;
-      await ContractManager.subscribeForUpdates(this.updateStringAndPrice);
-
-      // And prime our first one.
       await this.updateStringAndPrice();
-
       this.setState({ loading: false });
+
+      // And continue to poll for new updates.
+      setInterval(this.updateStringAndPrice, 1000);
     } catch (error) {
       this.setState({ error });
     }
@@ -112,7 +110,7 @@ class App extends PureComponent {
               placeholder="Make it rain!"
               min="0"
               max="100000000000"
-              step=".01"
+              step=".0000000001"
               onChange={e => this.onChange("newPrice", e.target.value)}
               value={newPrice}
             />

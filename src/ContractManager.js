@@ -68,8 +68,14 @@ class ContractManager {
 
   subscribeForUpdates = async callback => {
     await this.ensureContractInitialised();
+    const currentBlock = await this.web3.eth.getBlockNumber();
 
-    this.contract.events.MessageUpdated(callback);
+    this.contract.events.MessageUpdated(
+      {
+        fromBlock: currentBlock
+      },
+      callback
+    );
   };
 }
 
