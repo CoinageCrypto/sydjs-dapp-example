@@ -1,14 +1,11 @@
 import React, { PureComponent } from "react";
 import Loader from "react-loader-spinner";
-import web3 from "web3";
 
 import ContractManager from "./ContractManager";
 
 import SydJSLogo from "./logo.png";
 
 import "./App.css";
-
-const { BN } = web3.utils;
 
 class App extends PureComponent {
   state = {
